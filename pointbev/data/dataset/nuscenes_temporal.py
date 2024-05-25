@@ -400,6 +400,7 @@ class TemporalNuScenesDataset(NuScenesDataset):
         It is used to move the query BEV around the coordinates of the car at the given timestep.
         By default, BEV are centered at the location of the car of the current timestep, but we may want to
         look at the BEV from a different location. This matrix moves the coordinate of the query BEV.
+        此方法的目的是生成一个或多个用于增强BEV的变换矩阵。这些矩阵可以用于在不同的时间步将BEV围绕汽车坐标进行移动,以便从不同的视角查看BEV。
 
         Args:
             override_bev_aug (npt.NDArray): Specified query augmentation matrix. Defaults to None.

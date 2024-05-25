@@ -15,15 +15,16 @@ defaults:
   - optional local: default.yaml
   - debug: null
 
-# task name, determines output directory path
+# task name, determines output directory path 任务名，决定输出文件名
 task_name: "train"
 
+# tags用来识别实验
 tags: ["dev"]
 train: True
 test: False
 profile: False
 
-# simply provide checkpoint path to resume training
+# simply provide checkpoint path to resume training 只需提供恢复train的检查点路径
 ckpt:
   path: null
   model:
@@ -31,7 +32,7 @@ ckpt:
     load: 'all'
 
 # seed for random number generators in pytorch, numpy and python.random
-seed: null
+seed: 42
 
 log_every_n_steps: 50 
 
@@ -42,25 +43,25 @@ flags:
 model:
   loss_kwargs:
     with_binimg: ${data.keep_input_binimg}
-    pos_weight: 2.13
+    pos_weight: 2.13 # 调节正负样本不均衡问题，如果正负样本是10:1，那就把p_c设置为1/10来平衡正负样本
     with_hdmap: ${data.keep_input_hdmap}
     hdmap_names: ${data.hdmap_names}
     with_centr_offs: ${data.keep_input_centr_offs}
-    compress_persp: False
-    segm_type: null
+    compress_persp: False # 未再出现
+    segm_type: null # segm的一些参数，在trainer的_init_loss函数中调用
 
   weights_kwargs:
     mode: "learned"
 
   train_kwargs:
     train_loss_frequency: 200
-    train_visu_frequency: 1000
-    train_visu_epoch_frequency: 10
-    train_visu_imgs: false
+    train_visu_frequency: 1000 # batch_idx % self.train_visu_frequency == 0
+    train_visu_epoch_frequency: 10 # self.current_epoch % self.train_visu_epoch_frequency == 0
+    train_visu_imgs: True
 
   val_kwargs:
-    val_visu_frequency: 250
-    val_visu_imgs: false
+    val_visu_frequency: 250 # batch_idx % self.val_visu_frequency == 0
+    val_visu_imgs: True
     val_calculate_losses: False
     
   metric_kwargs:

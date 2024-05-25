@@ -62,7 +62,7 @@ class CamProjector(nn.Module):
             - egoseq to bevaug: (R1, T1)
         """
         # Prepare vox_coords
-        vox_coords = rearrange(vox_coords, "bt i x y z -> bt i (x y z)", i=3)
+        vox_coords = rearrange(vox_coords, "bt i x y z -> bt i (x y z)", i=3) # 1 3 320000
 
         # Apply: egoTin_to_seq.
         egoTin_to_seq = torch.linalg.inv(
@@ -255,7 +255,7 @@ class CamProjector(nn.Module):
             dict_mat["bev_aug"],
             dict_mat["egoTin_to_seq"],
         )
-        vox_coords = dict_vox.get("vox_coords", None)
+        vox_coords = dict_vox.get("vox_coords", None) # 1 3 200 200 8，可以看一下这个怎么产生的
 
         # Alias
         (b, n, t) = [dict_shape[k] for k in ["b", "n", "t"]]

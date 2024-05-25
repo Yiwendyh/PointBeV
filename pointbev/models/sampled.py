@@ -265,6 +265,7 @@ class PointBeV(Network):
 
     # Forward
     def forward(self, imgs, rots, trans, intrins, bev_aug, egoTin_to_seq, **kwargs):
+        # imgs: 1 1 6 3 224 480  rots: 1 1 6 3 3 3  trans: 1 1 6 3 1  intrins: 3 3 6 1 1  bev_aug: 1 1 4 4  egoTin_to_seq: 1 1 4 4
         (
             dict_shape,
             dict_vox,
@@ -273,6 +274,7 @@ class PointBeV(Network):
         ) = self._common_init_backneck_prepare_vt(
             imgs, rots, trans, intrins, bev_aug, egoTin_to_seq
         )
+        # dict_img: 1 6 128 28 60
 
         sampling_imgs = {
             "lidar": kwargs.get("lidar_img", None),
@@ -285,6 +287,7 @@ class PointBeV(Network):
             dict_vox,
             sampling_imgs,
         )
+        # out: bining: 1 1 1 200 200  offsets: 1 1 2 200 200  centerness: 1 1 1 200 200
         dict_out = {"bev": out}
         dict_out["masks"] = {"bev": masks}
         dict_out["tracks"] = tracks

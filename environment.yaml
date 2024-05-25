@@ -1,5 +1,5 @@
 name:
-  pointbev
+  pbv
 channels:
   - nvidia
   - pytorch

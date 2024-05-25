@@ -10,7 +10,6 @@ scene-0001 : 10 ego_token -> We need to collect info
 of each 10 samples to create the corresponding scene.
 """
 
-import pdb
 import warnings
 
 from shapely.errors import ShapelyDeprecationWarning

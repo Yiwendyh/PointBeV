@@ -162,4 +162,4 @@ archive/
 *.txt
 backbones/*
 notebooks/frame*
-logs/*/*/*/checkpoints/*.ckpt
+logs/

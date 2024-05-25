@@ -57,6 +57,15 @@ def from_corners_to_chw(bbox):
 def get_random_ref_matrix(coeffs):
     """
     Use scipy to create a random reference transformation matrix.
+    这段代码定义了一个函数get_random_ref_matrix,其任务是生成一个随机的参考变换矩阵。这个变换矩阵由随机的平移和旋转组成,并且使用齐次坐标表示。
+    输入:coeffs (dict): 一个字典,包含键"trans_rot",其值是一个列表,前三个元素是平移系数,后三个元素是旋转系数。[30.,20.,0.,20.,0.,0.]
+    输出:一个4x4的NumPy数组mat,表示生成的齐次变换矩阵。这个矩阵的前3行3列代表旋转部分,第4列的前3个元素代表平移部分,其余元素为0或1以符合齐次坐标的定义。
+    代码执行流程：
+        - 从输入字典中提取平移和旋转系数。
+        - 初始化一个4x4的单位矩阵mat。
+        - 计算随机生成的平移向量,乘以平移系数,并将结果赋值给mat的前3行第4列。
+        - 计算随机生成的绕Z、Y、X轴的旋转角度,乘以旋转系数,然后使用scipy的Rotation对象从这些欧拉角生成旋转矩阵,并赋值给mat的前3行前3列。
+        - 返回最终生成的变换矩阵mat。
     """
     coeffs = coeffs["trans_rot"]
     trans_coeff, rot_coeff = coeffs[:3], coeffs[3:]

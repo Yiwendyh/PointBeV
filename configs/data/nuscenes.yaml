@@ -33,17 +33,17 @@ img_params:
     - 'CAM_BACK'
     - 'CAM_BACK_RIGHT'
   Ncams: 6
-  min_visibility: 2
-  update_intrinsics: True
-  downsample: ${model.net.backbone.downsample}
+  min_visibility: 1 # nuscenes的可见度标签 1代表0%-40% 2代表40%-60%，3代表60%-80%，4代表80%-100%
+  update_intrinsics: True # 更新内含变量，intrins为一个3*3矩阵
+  downsample: ${model.net.backbone.downsample} # 记录下采样倍率，以更新intrinsics（从摄像机到图像的本征矩阵） -> pointbev/utils/imgs.py(96)
 
 # Coefficients
 coeffs:
   bev_aug:
-    trans_rot: [30.,20.,0.,20.,0.,0.]
+    trans_rot: [30.,20.,0.,20.,0.,0.] # 前三个数：平移系数，后三个数：旋转系数
 
 # Dataloader
-batch_size: 1
+batch_size: 8
 valid_batch_size: ${data.batch_size}
 num_workers: 16
 pin_memory: True
@@ -56,7 +56,7 @@ normalize_img: True
 keep_input_binimg: True
 keep_input_centr_offs: True
 keep_input_detection: False
-keep_input_hdmap: False
+keep_input_hdmap: True
 hdmap_names: ['drivable_area']
 keep_input_persp: False
 keep_input_sampling: False
@@ -69,7 +69,7 @@ visualise_mode: False
 kernel_scales: [1]
 
 # Temporal
-cam_T_P: [[0,0]]
+cam_T_P: [[0,0]] # T_P means pair of time_pose, [-1,0] menas at time 0 output bev in time = -1
 bev_T_P: [[0,0]]
 mode_ref_cam_T: 'present'
 

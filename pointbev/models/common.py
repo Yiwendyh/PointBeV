@@ -114,6 +114,7 @@ class Network(nn.Module):
     ):
         """Avoid redundancy accross files and models.
 
+        imgs: 1 1 6 3 224 480  rots: 1 1 6 3 3 3  trans: 1 1 6 3 1  intrins: 3 3 6 1 1  bev_aug: 1 1 4 4  egoTin_to_seq: 1 1 4 4
         Shared among models:
         - dictionary initialization,
         - forward backbone and neck,

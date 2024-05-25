@@ -3,6 +3,8 @@ Check if the dataset runs fine and if we get the desired outputs.
 Allows for fast debugging of the dataset.
 """
 
+from re import T
+from turtle import shapesize
 import hydra
 import pytest
 
@@ -49,6 +51,9 @@ def test_temporal_dataloader(get_temporal_dataloader):
     elem = get_temporal_dataloader.on_after_batch_transfer(elem, 0)
 
     print(elem.keys())
+    for key in elem.keys():
+        shape = len(elem[key]) if type(elem[key]) == list else elem[key].shape
+        print(f'{key}: {type(elem[key])}, shape: {shape}')
     rots = elem["rots"]
     trans = elem["trans"]
     imgs = elem["imgs"]

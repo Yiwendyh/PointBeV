@@ -95,9 +95,11 @@ def train(cfg: DictConfig) -> Tuple[dict, dict]:
         log.info("Logging hyperparameters!")
         utils.log_hyperparameters(object_dict)
 
+    # Train!
     if cfg.get("train"):
         log.info("Starting training!")
         trainer.fit(model=model, datamodule=datamodule, ckpt_path=cfg.ckpt.path)
+        # jump -> /pointbev/data/datamodule/nuscenes_loader.py line 145 setup
 
     train_metrics = trainer.callback_metrics
 

@@ -5,6 +5,8 @@ def get_in_c_neck(target):
     key = target.split(".")[-1]
     if key == "EfficientNet":
         return [56, 160]
+    elif key == "EfficientViT":
+        return [32, 64, 128]
     elif key == "Encoder_res50":
         return [512, 1024]
     elif key == "Encoder_res101":
@@ -18,6 +20,8 @@ def get_in_c_neck(target):
 def get_neck_interm_c(target):
     key = target.split(".")[-1]
     if key == "EfficientNet":
+        return 128
+    if key == "EfficientViT":
         return 128
     elif key == "Encoder_res50":
         return 512
